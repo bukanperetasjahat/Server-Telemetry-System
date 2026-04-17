@@ -4,8 +4,6 @@
 
 A real-time server monitoring system built using ESP32 (FreeRTOS), MQTT messaging, and a Dockerized backend.
 
-This project simulates a distributed telemetry pipeline, similar to those used in mission-critical systems (e.g., satellite telemetry, edge monitoring systems).
-
 ---
 
 ## 🏗️ Architecture
