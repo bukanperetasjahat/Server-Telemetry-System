@@ -9,36 +9,20 @@ This project simulates a distributed telemetry pipeline, similar to those used i
 ---
 
 ## 🏗️ Architecture
-+----------------------+
-| Proxmox Server |
-| (metrics API) |
-+----------+-----------+
-|
-| HTTP
-v
-+----------------------+
-| ESP32 (FreeRTOS) |
-| - Task Scheduling |
-| - Data Processing |
-+----------+-----------+
-|
-| MQTT
-v
-+----------------------+
-| MQTT Broker |
-| (Mosquitto) |
-+----------+-----------+
-|
-v
-+----------------------+
-| Backend (Python) |
-| Telegram Bot |
-+----------+-----------+
-|
-v
-📱 Telegram Alert (Real-time)
 
+```mermaid
+flowchart TD
+    A["Proxmox Server\n(Metrics API)"]
+    B["ESP32 (FreeRTOS)\n- Task Scheduling\n- Data Processing"]
+    C["MQTT Broker\n(Mosquitto)"]
+    D["Backend (Python)\nTelegram Bot"]
+    E["Telegram Alert\n(Real-time)"]
 
+    A -->|HTTP| B
+    B -->|MQTT| C
+    C --> D
+    D --> E
+```
 ---
 
 ## ✨ Features
@@ -95,26 +79,27 @@ Update config:
 const char* mqtt_server = "YOUR_SERVER_IP";
 const char* serverUrl = "http://YOUR_SERVER_IP:8000/metrics.json";
 ```
-
-##📡 MQTT Topics
-Topic	Description
-server/telemetry	Periodic metrics
-server/alert	Alert events
-
-##🧠 Design Decisions
-FreeRTOS → real-time scheduling & concurrency
-MQTT → lightweight telemetry messaging
-ESP32 → edge node simulation
-Docker → reproducible backend deployment
-
-##🔐 Security (Planned Improvements)
-MQTT authentication
-TLS encryption
-API authentication
-Network segmentation
-
-##🚀 Future Work
-📊 Grafana dashboard (visual monitoring)
-🧠 Predictive alerting (AI/threshold learning)
-🔄 OTA updates for ESP32
-💾 Time-series database (InfluxDB)
+---
+## MQTT Topics
+- Topic	Description
+- server/telemetry	Periodic metrics
+- server/alert	Alert events
+---
+## Design Decisions
+- FreeRTOS → real-time scheduling & concurrency
+- MQTT → lightweight telemetry messaging
+- ESP32 → edge node simulation
+- Docker → reproducible backend deployment
+---
+## Security (Planned Improvements)
+- MQTT authentication
+- TLS encryption
+- API authentication
+- Network segmentation
+---
+## Future Work
+- 📊 Grafana dashboard (visual monitoring)
+- 🧠 Predictive alerting (AI/threshold learning)
+- 🔄 OTA updates for ESP32
+- 💾 Time-series database (InfluxDB)
+---
